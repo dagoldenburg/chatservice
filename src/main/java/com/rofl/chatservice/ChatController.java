@@ -14,19 +14,16 @@ public class ChatController {
 
     final FluxProcessor processor;
     final FluxSink sink;
-    AtomicLong counter;
-
 
     private ArrayList<ChatMessage> messages = new ArrayList<>();
 
     public ChatController(FluxProcessor processor, FluxSink sink) {
         this.processor = processor;
         this.sink = sink;
-        this.counter = new AtomicLong();
     }
 
     @PostMapping("/postMessage")
-    private void postMessage(@Valid @RequestBody ChatMessage message) { ;
+    public void postMessage(@Valid @RequestBody ChatMessage message) {
         messages.add(message);
         sink.next(message);
     }
